@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Location Tracker</title>
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="location-tracker.css" />
+  </head>
+  <body>
+    <div class="tracker-container">
+      <header class="search-container">
+        <input
+          class="search-input"
+          type="text"
+          placeholder="Search locations..."
+          id="search-input"
+        />
+        <div class="search-results" id="search-results"></div>
+      </header>
+      <main class="map-container" id="map"></main>
+      <aside class="zoom-controls">
+        <button class="zoom-button zoom-in" id="zoom-in">+</button>
+        <button class="zoom-button zoom-out" id="zoom-out">-</button>
+      </aside>
+      <footer class="location-info">
+        <h3 class="location-title">Current Location</h3>
+        <p class="location-coordinates" id="coordinates">
+          Fetching location...
+        </p>
+        <button class="refresh-button" id="refresh-location">
+          Refresh Location
+        </button>
+      </footer>
+      <div class="loading-indicator" id="loading-indicator">
+        <div class="spinner"></div>
+        <p>Locating you...</p>
+      </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="location-tracker.js"></script>
+  </body>
+</html>

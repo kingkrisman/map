@@ -1,0 +1,328 @@
+/* Base styles and variables */
+:root {
+  --primary-bg: #0a192f;
+  --secondary-bg: #112240;
+  --accent-color: #00f2fe;
+  --accent-color-transparent: rgba(0, 242, 254, 0.3);
+  --text-color: #fff;
+  --text-color-muted: rgba(255, 255, 255, 0.8);
+  --border-color: rgba(0, 242, 254, 0.3);
+  --panel-bg: rgba(10, 25, 47, 0.8);
+  --hover-bg: rgba(0, 242, 254, 0.2);
+  --shadow-color: rgba(0, 242, 254, 0.2);
+  --grid-color: rgba(0, 242, 254, 0.1);
+}
+
+/* Reset and global styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  line-height: 1.5;
+}
+
+/* Main container */
+.tracker-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--primary-bg);
+}
+
+/* Search section */
+.search-container {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 600px;
+  z-index: 1000; /* Above the map */
+}
+
+.search-input {
+  width: 100%;
+  padding: 15px 20px;
+  border-radius: 30px;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  backdrop-filter: blur(10px);
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: var(--panel-bg);
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 0 20px var(--shadow-color);
+  border: 1px solid rgba(0, 242, 254, 0.5);
+}
+
+/* Search results dropdown */
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: var(--panel-bg);
+  border-radius: 15px;
+  margin-top: 10px;
+  border: 1px solid var(--border-color);
+  display: none;
+  z-index: 1001;
+}
+
+.search-results.active {
+  display: block;
+}
+
+.search-result-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background-color: var(--hover-bg);
+}
+
+/* Map container */
+.map-container {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    var(--primary-bg) 0%,
+    var(--secondary-bg) 100%
+  );
+  position: relative;
+  z-index: 1;
+}
+
+/* Custom map styling */
+.leaflet-container {
+  background-color: var(--secondary-bg) !important;
+}
+
+.leaflet-tile {
+  filter: hue-rotate(210deg) brightness(0.7) saturate(1.5);
+}
+
+.leaflet-control-attribution {
+  background-color: rgba(10, 25, 47, 0.7) !important;
+  color: var(--text-color-muted) !important;
+}
+
+.leaflet-control-attribution a {
+  color: var(--accent-color) !important;
+}
+
+/* Zoom controls */
+.zoom-controls {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.zoom-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  background-color: var(--panel-bg);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zoom-button:hover {
+  background: var(--hover-bg);
+  transform: scale(1.1);
+}
+
+/* Location info panel */
+.location-info {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  background-color: var(--panel-bg);
+}
+
+.location-title {
+  margin: 0 0 10px 0;
+  color: var(--accent-color);
+  font-size: 18px;
+}
+
+.location-coordinates {
+  margin: 0 0 15px 0;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.refresh-button {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--accent-color);
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 12px;
+}
+
+.refresh-button:hover {
+  background: var(--hover-bg);
+  transform: scale(1.05);
+}
+
+/* Loading indicator */
+.loading-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--panel-bg);
+  padding: 20px 30px;
+  border-radius: 15px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2000;
+  display: none;
+}
+
+.loading-indicator.active {
+  display: flex;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 242, 254, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--accent-color);
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 15px;
+}
+
+.loading-indicator p {
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes borderGlow {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Custom marker pulse animation */
+.marker-pulse {
+  width: 20px;
+  height: 20px;
+  background-color: rgba(0, 242, 254, 0.5);
+  border-radius: 50%;
+  position: relative;
+}
+
+.marker-pulse::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  animation: markerPulse 1.5s ease-out infinite;
+  z-index: -1;
+}
+
+@keyframes markerPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+/* Media queries */
+@media (max-width: 640px) {
+  .location-info {
+    width: calc(100% - 40px);
+  }
+
+  .search-container {
+    width: 90%;
+  }
+
+  .zoom-controls {
+    right: 10px;
+  }
+
+  .zoom-button {
+    width: 36px;
+    height: 36px;
+  }
+}
